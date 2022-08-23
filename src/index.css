@@ -401,4 +401,12 @@ input[type='text'] {
     align-items: stretch;
     flex-direction: column;
   }
+
+  nav.top-menu {
+    overflow-x: scroll;
+  }
+
+  nav.top-menu .logo a {
+    font-size: 1.2rem;
+  }
 }
