@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "start": "echo 'starting'",
+    "start": "vite --port $PORT",
     "preview": "vite preview"
   },
   "dependencies": {
