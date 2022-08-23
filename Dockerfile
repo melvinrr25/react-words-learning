@@ -9,8 +9,6 @@ RUN npm install
 
 COPY ./ /app/
 
-RUN CI=true npm test
-
 RUN npm run build
 
 
@@ -21,3 +19,17 @@ COPY --from=build-stage /app/build/ /usr/share/nginx/html
 
 # Copy the default nginx.conf provided by tiangolo/node-frontend
 COPY --from=build-stage /nginx.conf /etc/nginx/conf.d/default.conf
+
+
+
+
+FROM nginx:alpine
+# copy over static assets
+COPY public/ /usr/share/nginx/html/
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+# RUN sed -i -e 's/$NGINX_PORT/${PORT}/g' /etc/nginx/conf.d/default.conf
+EXPOSE $PORT
+
+CMD sed -i -e 's/$NGINX_PORT/'"$PORT"'/g' /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'
+
+
