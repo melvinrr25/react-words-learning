@@ -66,8 +66,15 @@ export function MemoryGame() {
     }
   };
   const handleGameState = (state, wordsList) => {
-    if (state == 'start') {
+    if (state == 'start-words') {
       setGameStarted(true);
+      const list = suffleList(wordsList);
+      setGameWords(list);
+    } else if (state == 'start-meanings') {
+      setGameStarted(true);
+      wordsList = wordsList.map((w) => {
+        return { ...w, meaning: w.word, word: w.meaning };
+      });
       const list = suffleList(wordsList);
       setGameWords(list);
     } else {
@@ -123,10 +130,16 @@ export function MemoryGame() {
     return (
       <div className="center">
         <button
-          onClick={() => handleGameState('start', words)}
+          onClick={() => handleGameState('start-words', words)}
           className="button orange"
         >
-          Start Practice
+          Start Practice with Words
+        </button>
+        <button
+          onClick={() => handleGameState('start-meanings', words)}
+          className="button orange"
+        >
+          Start Practice with Meanings
         </button>
       </div>
     );
